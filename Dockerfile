@@ -22,6 +22,7 @@ RUN apt update \
     && rm -rf /var/lib/{apt,dpkg,cache,log}
 
 COPY --from=build "/target/release/piiscrub" "/bin/piiscrub"
+COPY "./static" "/bin/static"
 
 EXPOSE 8000
 
