@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>PII Scrubber</title>
+        <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    </head>
+    <body>
+        <h2>PII Scrubber</h2>
+        <div>
+            <form method="post" action="/process">
+                <textarea name="text" rows="10" cols="64" autofocus="true" required="true"></textarea>
+                <br />
+                <select name="action">
+                <option value="regex">Regular Expressions</option>
+                </select>
+                <br />
+                <input name="question" />
+                <button type="submit">Process Text</button>
+            </form>
+        </div>
+    </body>
+</html>
