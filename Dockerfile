@@ -9,6 +9,8 @@ RUN apt update \
     && apt install --yes binutils build-essential pkg-config libssl-dev clang lld git protobuf-compiler \
     && rm -rf /var/lib/{apt,dpkg,cache,log}
 
+COPY . .
+
 RUN cargo build --release
 
 FROM debian:bullseye-slim
