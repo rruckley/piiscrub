@@ -55,4 +55,11 @@ impl RegexFilter {
         
         Ok(format!("<div class=\"regex\">{}</div>",output))
     }
+
+    /// Output current document configuration
+    pub fn config(&self) -> Result<String,String> {
+        let output = "<ul>".to_owned();
+        // Iterate through docs
+        Ok(format!("<div class=\"regex-config\">{}</div>",output))
+    }
 }
