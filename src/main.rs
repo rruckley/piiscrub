@@ -31,7 +31,7 @@ async fn process_regex(regex : &State<RegexFilter>, context : String) -> Result<
 async fn process(regex : &State<RegexFilter>, form_data : Form<InputData>) -> (ContentType,String) {
     let action = &form_data.action;
     let style = get_style();
-    let result = match action.as_str() {
+    let result : Result<String,String> = match action.as_str() {
         "regex" => {
             let reg = process_regex(regex, form_data.text.clone()).await;
             Ok(format!("<html><head><title>Regular Expressions</title>{}</head><body><h2>Regular Expressions</h2>{}</body></html>",style,reg.unwrap()))
@@ -45,6 +45,7 @@ async fn process(regex : &State<RegexFilter>, form_data : Form<InputData>) -> (C
 async fn index() -> (ContentType, &'static str) {
     (ContentType::HTML,"
     <html>
+        <meta http-equiv=\"Refresh\" content=\"0; url='/static/index.html'\" />
     </html>")
 }
 
