@@ -24,6 +24,8 @@ RUN apt update \
 COPY --from=build "/target/release/piiscrub" "/bin/piiscrub"
 COPY "./static" "/bin/static"
 
+ENV ROCKET_ADDRESS 0.0.0.0
+
 EXPOSE 8000
 
 CMD ["/bin/piiscrub"]
