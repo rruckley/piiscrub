@@ -41,6 +41,12 @@ async fn process(regex : &State<RegexFilter>, form_data : Form<InputData>) -> (C
     (ContentType::HTML,result.expect("Could not get output"))
 }
 
+#[get("/config")]
+async fn config(regex : &State<RegexFilter>) -> (ContentType,String) {
+    let result = regex.config().expect("Could not get doc config");
+    (ContentType::HTML,result)
+}
+
 #[get("/")]
 async fn index() -> (ContentType, &'static str) {
     (ContentType::HTML,"
@@ -56,4 +62,5 @@ async fn rocket() -> _ {
         .manage(regex_filter)
         .mount("/static",FileServer::from(relative!("static")))
         .mount("/",routes![index,process])
+        .mount("/docs",routes![config])
 }
