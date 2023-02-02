@@ -1,6 +1,7 @@
 
 use crate::docs::{Document,DocType};
 use regex::*;
+use strum::IntoEnumIterator;
 
 pub struct RegexFilter {
     docs : Vec<Document>,
@@ -49,8 +50,8 @@ impl RegexFilter {
             let start = m.matched.start();
             let end = m.matched.end();
             let fill = "X".repeat(end-start);
-            let span = format!("<span class=\"{}\">{}</span>",m.doc_type,fill);
-            output.replace_range(start..end, &span)
+            let _span = format!("<span class=\"{}\">{}</span>",m.doc_type,fill);
+            output.replace_range(start..end, &fill)
         }
         
         Ok(format!("<div class=\"regex\">{}</div>",output))
@@ -58,8 +59,12 @@ impl RegexFilter {
 
     /// Output current document configuration
     pub fn config(&self) -> Result<String,String> {
-        let output = "<ul>".to_owned();
+        let mut output = "<ul>".to_owned();
         // Iterate through docs
+        for doc in DocType::iter() {
+            output.push_str(format!("<li>{} - {}</li>",doc.to_string(),Document::get_regex_pattern(&doc)).as_str());
+        }
+        output.push_str("</ul>");
         Ok(format!("<div class=\"regex-config\">{}</div>",output))
     }
 }
