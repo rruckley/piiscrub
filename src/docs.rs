@@ -4,8 +4,11 @@
 /// 
 /// 
 use regex::Regex;
+use strum_macros::EnumIter;
 
 #[derive(Debug)]
+
+#[derive(EnumIter, PartialEq)]
 pub enum DocType {
     CurrentPassport,
     ExpiredPassport,
@@ -50,17 +53,20 @@ impl Document {
             pattern,
         }
     }
-    fn get_regex(doc_type: &DocType) -> regex::Regex {
+    pub fn get_regex_pattern(doc_type: &DocType) -> String {
         match doc_type {
-            DocType::CurrentPassport => Regex::new("N[P]?\\d{7}").unwrap(),
-            DocType::ExpiredPassport => Regex::new("EPASS").unwrap(),
-            DocType::BirthCertificate => Regex::new("BCERT").unwrap(),
-            DocType::CitizenCertificate => Regex::new("CCERT").unwrap(),
-            DocType::DriverLicense => Regex::new("DRIVER").unwrap(),
-            DocType::ForeignPassport  => Regex::new("FPASS").unwrap(),
-            DocType::Medicare => Regex::new("\\d{4}-\\d{5}-\\d").unwrap(),
-            DocType::Iccid => Regex::new("\\d{13}").unwrap(),
-            DocType::MobileServiceNumber => Regex::new("04\\d{8}").unwrap(),
+            DocType::CurrentPassport => "[A-Z][A-Z]?\\d{7}".to_owned(),
+            DocType::ExpiredPassport => "EPASS".to_owned(),
+            DocType::BirthCertificate => "\\d+/\\d{4}".to_owned(),
+            DocType::CitizenCertificate => "CCERT".to_owned(),
+            DocType::DriverLicense => "DRIVER".to_owned(),
+            DocType::ForeignPassport  => "FPASS".to_owned(),
+            DocType::Medicare => "\\d{4}-\\d{5}-\\d".to_owned(),
+            DocType::Iccid => "\\d{13}".to_owned(),
+            DocType::MobileServiceNumber => "04\\d{8}".to_owned(),
         }
+    }
+    fn get_regex(doc_type: &DocType) -> regex::Regex {
+        Regex::new(Document::get_regex_pattern(doc_type).as_str()).unwrap()
     }
 }
