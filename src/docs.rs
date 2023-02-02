@@ -69,7 +69,7 @@ impl Document {
             DocType::DriverLicenseNSWCard => "\\d \\d{3} \\d{3} \\d{3}|\\d{10}".to_owned(),
             DocType::ForeignPassport  => "FPASS".to_owned(),
             DocType::Medicare => "\\d{4}-\\d{5}-\\d".to_owned(),
-            DocType::Iccid => "\\d{13}".to_owned(),
+            DocType::Iccid => "8961\\d+".to_owned(),
             DocType::MobileServiceNumber => "(04\\d{8}|04\\d{2} \\d{3} \\d{3})".to_owned(),
             DocType::MarriageNSW => "\\d+/\\d{4}".to_owned(),
         }
