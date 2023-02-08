@@ -16,13 +16,13 @@ impl RegexFilter {
     pub fn new() -> Self {
         let cpass = Document::new(DocType::CurrentPassport,70);
         let epass = Document::new(DocType::ExpiredPassport,50);
-        let fpass = Document::new(DocType::ForeignPassport,50);
+        let fpass = Document::new(DocType::ForeignPassport,70);
         let bcert = Document::new(DocType::BirthCertificate,70);
-        let ccert = Document::new(DocType::CitizenCertificate, 50);
-        let driver_nsw = Document::new(DocType::DriverLicenseNSW, 50);
-        let driver_nsw_card = Document::new(DocType::DriverLicenseNSWCard, 50);
-        let medicare = Document::new(DocType::Medicare, 30);
-        let iccid = Document::new(DocType::Iccid, 0);
+        let ccert = Document::new(DocType::CitizenCertificate, 70);
+        let driver_nsw = Document::new(DocType::DriverLicenseNSW, 40);
+        let driver_nsw_card = Document::new(DocType::DriverLicenseNSWCard, 40);
+        let medicare = Document::new(DocType::Medicare, 25);
+        let iccid = Document::new(DocType::Iccid, 5);
         let msn = Document::new(DocType::MobileServiceNumber, 10);
         let docs = vec![cpass,epass,fpass,bcert,ccert,driver_nsw,medicare,iccid,msn,driver_nsw_card];
         Self {
